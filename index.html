@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How Has Hong Kong's Annual Extreme Weather (Especially Heatwaves) Affected Public Health and Labor Productivity Across Industries?</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="page-header">
+    <h1>How Has Hong Kong's Annual Extreme Weather (Especially Heatwaves) Affected Public Health and Labor Productivity Across Industries?</h1>
+  </header>
+
+  <main class="layout">
+    <section class="panel">
+      <h2>Chart 1. Annual Climate and Impact Overview</h2>
+      <div class="controls">
+        <button id="prevYearBtn" type="button">Previous Year</button>
+        <button id="playBtn" type="button">Play</button>
+        <button id="nextYearBtn" type="button">Next Year</button>
+        <span id="selectedYearLabel" class="year-label">Year: -</span>
+      </div>
+      <div id="overviewCards" class="cards"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Chart 2. Heatwave and Influenza Dual-Axis Trend</h2>
+      <div id="chart1" class="chart chart-large"></div>
+      <p class="hint">Tip: Click a year bar or point to synchronize all charts.</p>
+    </section>
+
+    <section class="panel">
+      <h2>Chart 3. Industry Productivity Ranking under Extreme Weather</h2>
+      <div class="controls">
+        <label for="sortMode">Sort by:</label>
+        <select id="sortMode">
+          <option value="valueDesc">Index (Descending)</option>
+          <option value="deltaAsc">Largest Decline vs 2015 (Most Impacted First)</option>
+        </select>
+      </div>
+      <div id="chart2" class="chart chart-medium"></div>
+      <p id="chart2Annotation" class="hint"></p>
+    </section>
+
+  </main>
+
+  <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
