@@ -7,13 +7,52 @@
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
+  <div class="reading-progress" aria-hidden="true">
+    <span id="readingProgressBar"></span>
+  </div>
+
   <header class="page-header">
     <h1>How Has Hong Kong's Annual Extreme Weather (Especially Heatwaves) Affected Public Health and Labor Productivity Across Industries?</h1>
+    <p class="subtitle">A data story on climate stress, influenza risk, and economic resilience from 2014 to 2024.</p>
   </header>
 
-  <main class="layout">
-    <section class="panel">
+  <nav class="story-nav">
+    <a href="#why-this-matters">Why This Matters</a>
+    <a href="#section-overview">Overview</a>
+    <a href="#section-trend">Heat & Health Trend</a>
+    <a href="#section-industry">Industry Ranking</a>
+  </nav>
+
+  <div class="report-shell">
+    <aside class="side-toc">
+      <h3>On this page</h3>
+      <a href="#why-this-matters" data-section-link="why-this-matters" class="active">Why This Matters</a>
+      <a href="#section-overview" data-section-link="section-overview">Overview</a>
+      <a href="#section-trend" data-section-link="section-trend">Heat & Health Trend</a>
+      <a href="#section-industry" data-section-link="section-industry">Industry Ranking</a>
+    </aside>
+
+    <main class="layout">
+      <section id="why-this-matters" class="panel narrative">
+      <h2>Why This Matters</h2>
+      <p class="takeaway">Takeaway: Climate stress is not only an environmental issue, but also a public health and productivity challenge.</p>
+      <p>
+        Hong Kong is facing more frequent heat stress events and volatile weather patterns. This dashboard examines whether
+        climate pressure is associated with public health risks and uneven productivity outcomes across industries.
+      </p>
+      <p>
+        Use the year controls to move through time. The visuals update together so you can compare climate indicators,
+        influenza patterns, and sector-level performance in one narrative flow.
+      </p>
+      </section>
+
+      <section id="section-overview" class="panel">
       <h2>Chart 1. Annual Climate and Impact Overview</h2>
+      <p class="takeaway">Takeaway: A single-year snapshot helps identify whether climate anomalies and social risk signals move together.</p>
+      <p class="section-intro">
+        Start with the selected year summary. This panel highlights temperature, rainfall, health, and sector signals
+        before you inspect trends and rankings in the next charts.
+      </p>
       <div class="controls">
         <button id="prevYearBtn" type="button">Previous Year</button>
         <button id="playBtn" type="button">Play</button>
@@ -21,16 +60,30 @@
         <span id="selectedYearLabel" class="year-label">Year: -</span>
       </div>
       <div id="overviewCards" class="cards"></div>
-    </section>
+      <div class="insight-box">
+        <h3>Key Findings for the Selected Year</h3>
+        <ul id="insightList"></ul>
+      </div>
+      </section>
 
-    <section class="panel">
+      <section id="section-trend" class="panel">
       <h2>Chart 2. Heatwave and Influenza Dual-Axis Trend</h2>
+      <p class="takeaway">Takeaway: Years with elevated heat pressure can coincide with higher health stress, but the relationship is not strictly linear.</p>
+      <p class="section-intro">
+        This combined chart compares average maximum temperature, hot days, and influenza cases over time.
+        Click a year to drive synchronized updates in the rest of the page.
+      </p>
       <div id="chart1" class="chart chart-large"></div>
       <p class="hint">Tip: Click a year bar or point to synchronize all charts.</p>
-    </section>
+      </section>
 
-    <section class="panel">
+      <section id="section-industry" class="panel">
       <h2>Chart 3. Industry Productivity Ranking under Extreme Weather</h2>
+      <p class="takeaway">Takeaway: Weather shocks are unevenly distributed across sectors, with some industries showing greater vulnerability than others.</p>
+      <p class="section-intro">
+        Compare sector performance indices against the 2015 baseline (100). Switch sorting mode to identify either
+        top-performing sectors or those with the largest declines.
+      </p>
       <div class="controls">
         <label for="sortMode">Sort by:</label>
         <select id="sortMode">
@@ -40,9 +93,9 @@
       </div>
       <div id="chart2" class="chart chart-medium"></div>
       <p id="chart2Annotation" class="hint"></p>
-    </section>
-
-  </main>
+      </section>
+    </main>
+  </div>
 
   <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
   <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>

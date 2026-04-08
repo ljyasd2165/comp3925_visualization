@@ -129,6 +129,7 @@ am5.ready(function () {
   let timerId = null;
 
   const overviewCards = document.getElementById("overviewCards");
+  const insightList = document.getElementById("insightList");
   const selectedYearLabel = document.getElementById("selectedYearLabel");
   const chart2Annotation = document.getElementById("chart2Annotation");
   const sortModeEl = document.getElementById("sortMode");
@@ -176,6 +177,14 @@ am5.ready(function () {
         <div class="progress"><span style="width:${riskWidth(d.compositeRiskScore)};"></span></div>
       </article>
     `;
+
+    const keyFindings = [
+      `Heat profile: ${d.heatDays} hot days with average maximum temperature at ${d.avgMaxTemp.toFixed(2)} °C.`,
+      `Health signal: influenza total reached ${d.influenzaTotal.toLocaleString()} cases, marked as "${d.fluAnomaly}".`,
+      `Risk interpretation: heat health risk was "${d.heatRiskLevel}" with composite risk score ${d.compositeRiskScore.toFixed(2)}.`,
+      `Economic note: "${d.extremeWeatherImpactIndustry}" was identified as the most weather-affected industry.`
+    ];
+    insightList.innerHTML = keyFindings.map((item) => `<li>${item}</li>`).join("");
   }
 
   const root1 = am5.Root.new("chart1");
@@ -330,6 +339,50 @@ am5.ready(function () {
     }
   });
   sortModeEl.addEventListener("change", () => renderChart2(selectedYear));
+
+  const sectionIds = ["why-this-matters", "section-overview", "section-trend", "section-industry"];
+  const tocLinks = Array.from(document.querySelectorAll("[data-section-link]"));
+  const readingProgressBar = document.getElementById("readingProgressBar");
+
+  function setActiveToc(sectionId) {
+    tocLinks.forEach((link) => {
+      link.classList.toggle("active", link.getAttribute("data-section-link") === sectionId);
+    });
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+      if (visible.length > 0) {
+        setActiveToc(visible[0].target.id);
+      }
+    },
+    {
+      root: null,
+      rootMargin: "-20% 0px -60% 0px",
+      threshold: [0.1, 0.25, 0.5]
+    }
+  );
+
+  sectionIds.forEach((id) => {
+    const section = document.getElementById(id);
+    if (section) observer.observe(section);
+  });
+
+  function updateReadingProgress() {
+    const scrollTop = window.scrollY || window.pageYOffset;
+    const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const ratio = docHeight > 0 ? Math.min(1, Math.max(0, scrollTop / docHeight)) : 0;
+    if (readingProgressBar) {
+      readingProgressBar.style.width = `${(ratio * 100).toFixed(2)}%`;
+    }
+  }
+
+  window.addEventListener("scroll", updateReadingProgress, { passive: true });
+  window.addEventListener("resize", updateReadingProgress);
+  updateReadingProgress();
 
   renderOverview(selectedYear);
   renderChart2(selectedYear);
